@@ -7,6 +7,7 @@ import { LuSquareStack } from "react-icons/lu";
 import { MdNotificationsNone } from "react-icons/md";
 import { PiSquaresFour } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export default function Navbar(){
 
@@ -29,7 +30,7 @@ export default function Navbar(){
                     </Flex>
                     <Flex mr="10" >
                         <FaCalendarDays size={20} color="#959393" />
-                        <Text w="8rem" color="gray.500" ml="3" fontSize="sm" fontWeight="medium" >14 October 2023</Text>
+                        <Text w="8rem" color="gray.500" ml="3" fontSize="sm" fontWeight="medium" >{moment().format('LL')}</Text>
                     </Flex>
                     <InputGroup mr="10" >
                         <InputLeftElement pointerEvents='none'>

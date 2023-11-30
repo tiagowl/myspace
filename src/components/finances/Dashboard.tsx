@@ -1,13 +1,19 @@
-import { HStack, Card, CardBody, Flex, Text } from "@chakra-ui/react";
-import { useContext } from "react";
+import { HStack, Card, CardBody, Flex, Text, Stack, Skeleton } from "@chakra-ui/react";
 import { IoNewspaperOutline } from "react-icons/io5";
 import { RiMoneyEuroCircleFill } from "react-icons/ri";
 import { TbPigMoney } from "react-icons/tb";
-import { FinancesContext } from "../../contexts/Finances";
+import useFinancesStore from "../../store/finances";
+import { useEffect } from "react";
 
 export default function FinancesDashboard(){
 
-    const {remainingSalary, totalExpenses, totalSavings} = useContext(FinancesContext);
+    const {remainingSalary, totalExpenses, totalSavings, fetchUser, fetchExpenses, fetchSavings, loading} = useFinancesStore();
+
+    useEffect(()=>{
+        fetchUser();
+        fetchExpenses();
+        fetchSavings();
+    }, [])
 
 
     const cardDashboardStyles = {
@@ -28,35 +34,56 @@ export default function FinancesDashboard(){
         <HStack>
                         <Card {...cardDashboardStyles.card} >
                             <CardBody>
-                                <Flex justifyContent="space-between" >
-                                    <Flex flexDirection="column" >
-                                        <Text {...cardDashboardStyles.title} >Salário Restante</Text>
-                                        <Text {...cardDashboardStyles.value} >{remainingSalary}</Text>
+                                {loading ? 
+                                    <Stack>
+                                        <Skeleton height='20px' width="50px" />
+                                        <Skeleton height='20px' />
+                                        <Skeleton height='20px' />
+                                    </Stack> : 
+                                    <Flex justifyContent="space-between" >
+                                        <Flex flexDirection="column" >
+                                            <Text {...cardDashboardStyles.title} >Salário Restante</Text>
+                                            <Text {...cardDashboardStyles.value} >{remainingSalary()}</Text>
+                                        </Flex>
+                                        <IoNewspaperOutline size={25} />
                                     </Flex>
-                                    <IoNewspaperOutline size={25} />
-                                </Flex>
+                                }
                             </CardBody>
                         </Card>
                         <Card {...cardDashboardStyles.card} >
-                            <CardBody>
-                                <Flex justifyContent="space-between" >
-                                    <Flex flexDirection="column" >
-                                        <Text {...cardDashboardStyles.title} >Total Gastos</Text>
-                                        <Text {...cardDashboardStyles.value} >{totalExpenses}</Text>
-                                    </Flex>
-                                    <RiMoneyEuroCircleFill size={25} />
-                                </Flex>
-                            </CardBody>
+                        <CardBody>
+                            {loading ? 
+                                        <Stack>
+                                            <Skeleton height='20px' width="50px" />
+                                            <Skeleton height='20px' />
+                                            <Skeleton height='20px' />
+                                        </Stack> : 
+                                        <Flex justifyContent="space-between" >
+                                            <Flex flexDirection="column" >
+                                                <Text {...cardDashboardStyles.title} >Total Gastos</Text>
+                                                <Text {...cardDashboardStyles.value} >{totalExpenses()}</Text>
+                                            </Flex>
+                                            <RiMoneyEuroCircleFill size={25} />
+                                        </Flex>
+                                }
+                        </CardBody>
                         </Card>
                         <Card {...cardDashboardStyles.card} >
                             <CardBody>
-                                <Flex justifyContent="space-between" >
-                                    <Flex flexDirection="column" >
-                                        <Text {...cardDashboardStyles.title} >Total Poupança</Text>
-                                        <Text {...cardDashboardStyles.value} >{totalSavings}</Text>
-                                    </Flex>
-                                    <TbPigMoney size={25} />
-                                </Flex>
+                                {loading ? 
+                                            <Stack>
+                                                <Skeleton height='20px' width="50px" />
+                                                <Skeleton height='20px' />
+                                                <Skeleton height='20px' />
+                                            </Stack> : 
+                                            <Flex justifyContent="space-between" >
+                                                <Flex flexDirection="column" >
+                                                    <Text {...cardDashboardStyles.title} >Salário Poupança</Text>
+                                                    <Text {...cardDashboardStyles.value} >{totalSavings()}</Text>
+                                                </Flex>
+                                                <TbPigMoney size={25} />
+                                            </Flex>
+                                        }
                             </CardBody>
                         </Card>
                     </HStack>

@@ -5,16 +5,23 @@ import {MdOutlinePriceChange} from "react-icons/md";
 import {MdOutlineSpeakerNotes} from "react-icons/md";
 import {FiStar} from "react-icons/fi";
 import {CgGym} from "react-icons/cg";
+import useFinancesStore from "../store/finances";
+import { useEffect } from "react";
 
 export default function Sidebar(){
 
     const navigate = useNavigate();
+    const {fetchUser, avatar_url, user} = useFinancesStore();
+
+    useEffect(()=>{
+        fetchUser();
+    }, [])
 
     return(
         <Flex w="20rem" flexDirection="column" py="1rem" borderRight="1px solid" borderRightColor="gray.100" h="100vh" bg="white" >
                 <Flex alignItems="center" cursor="pointer" onClick={()=>navigate("/profile")} px="2rem" borderBottom="1px solid" borderBottomColor="gray.100" pb="4" w="100%" justifyContent="space-between" >
-                    <Avatar size="md" name='Dan Abrahmov' src='https://bit.ly/dan-abramov' />
-                    <Text fontWeight="medium" fontSize="md" color="black" >Dan Abramov</Text>
+                    <Avatar size="md" name='Dan Abrahmov' src={avatar_url} />
+                    <Text fontWeight="medium" fontSize="md" color="black" >{user?.name}</Text>
                     <Flex flexDirection="column" >
                         <ChevronUpIcon color="gray.400" />
                         <ChevronDownIcon color="gray.400" />
@@ -28,7 +35,7 @@ export default function Sidebar(){
                             <ListIcon as={MdOutlinePriceChange}  h="5" w="5" color='gray.500' />
                             Finanças
                         </ListItem>
-                        <ListItem fontSize="md" color="gray.500" >
+                        <ListItem onClick={()=>navigate("/tasks")} cursor="pointer" fontSize="md" color="gray.500" >
                             <ListIcon as={MdOutlineSpeakerNotes} color='gray.500' />
                             Tarefas
                         </ListItem>
