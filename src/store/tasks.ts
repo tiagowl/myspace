@@ -107,7 +107,7 @@ const useTasksStore = create<TasksState>((set)=>({
 
         if(data){
             
-            subtask.forEach((item, index)=> subtask[index].task_id = data[0].id);
+            subtask.forEach((item, index)=> {subtask[index].task_id = data[0].id; return item});
 
             const { data: checklist } = await tasks
             .from('subtasks')
