@@ -20,6 +20,8 @@ export default function PageInfo(){
             case "/tasks":
                 setPageName("Tarefas");
                 break;
+            case "/wishes":
+                setPageName("Desejos");
         }
     }
 

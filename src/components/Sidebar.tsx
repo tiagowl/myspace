@@ -39,7 +39,7 @@ export default function Sidebar(){
                             <ListIcon as={MdOutlineSpeakerNotes} color='gray.500' />
                             Tarefas
                         </ListItem>
-                        <ListItem fontSize="md" color="gray.500" >
+                        <ListItem fontSize="md" cursor="pointer" onClick={()=>navigate("/wishes")} color="gray.500" >
                             <ListIcon as={FiStar} color='gray.500' />
                             Desejos
                         </ListItem>
