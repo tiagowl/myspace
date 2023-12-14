@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { CgGames } from "react-icons/cg";
 import { AiFillBulb } from "react-icons/ai";
 import Wish from "../types/Wishes";
+import { useNavigate } from "react-router-dom";
 
 export default function Wishes(){
 
@@ -21,6 +22,7 @@ export default function Wishes(){
     const [textSearch, setTextSearch] = useState("");
     const [initialIndex, setInitialIndex] = useState(0);
     const [numPerPage] = useState(5);
+    const navigate = useNavigate();
 
     const iconWish = (id: number) => {
         switch(id){
@@ -75,7 +77,7 @@ export default function Wishes(){
 
     const handleChangePage = async() => {
         if(initialIndex > 0){
-            await fetchWishes(initialIndex + numPerPage - 1, numPerPage + initialIndex + 2);
+            await fetchWishes(initialIndex + numPerPage - 1, numPerPage + initialIndex + 3);
         }else if(initialIndex === 0) {
             await fetchWishes(initialIndex, numPerPage - 1);
         }
@@ -145,7 +147,7 @@ export default function Wishes(){
                                 </Flex>
                                 <HStack>
                                     <IoIosLink fontSize={20} />
-                                    <LuFileSymlink fontSize={20} />
+                                    <LuFileSymlink style={{cursor: "pointer"}} fontSize={20} onClick={()=>navigate(item?.link)} />
                                     <RxDragHandleDots2 onClick={()=>setWishId(item?.id)} style={{cursor: "pointer"}} fontSize={20} />
                                 </HStack>
                             </CardBody>
@@ -154,7 +156,7 @@ export default function Wishes(){
                 </VStack>
 
                 <HStack w="100%" display="flex" justifyContent="center" >
-                    {initialIndex > 0 && <Square size="9" bg="white" onClick={()=>setInitialIndex(state => state - 1)} border="1px solid" borderColor="gray.200" borderRadius="md" >
+                    {initialIndex > 0 && <Square size="9" bg="white" cursor="pointer" onClick={()=>setInitialIndex(state => state - 1)} border="1px solid" borderColor="gray.200" borderRadius="md" >
                         <ChevronLeftIcon color="gray.400" fontSize="lg" />
                     </Square>}
 
@@ -162,7 +164,7 @@ export default function Wishes(){
                         {initialIndex + 1}
                     </Square>
 
-                    {wishes.length === 5 && <Square size="9" onClick={()=>setInitialIndex(state => state + 1)} bg="white" border="1px solid" borderColor="gray.200" borderRadius="md" >
+                    {wishes.length === 5 && <Square size="9" cursor="pointer" onClick={()=>setInitialIndex(state => state + 1)} bg="white" border="1px solid" borderColor="gray.200" borderRadius="md" >
                         <ChevronRightIcon color="gray.400" fontSize="lg" />
                     </Square>}
                 </HStack>
