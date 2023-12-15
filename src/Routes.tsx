@@ -4,6 +4,7 @@ import Finances from "./pages/Finances";
 import Profile from "./pages/Profile";
 import Tasks from "./pages/Tasks";
 import Wishes from "./pages/Wishes";
+import Gym from "./pages/Gym";
 
 export default function RoutesApp(){
     return(
@@ -13,6 +14,7 @@ export default function RoutesApp(){
                     <Route index element={<Finances/>} />
                     <Route path="/tasks" element={<Tasks/>} />
                     <Route path="/wishes" element={<Wishes/>} />
+                    <Route path="/gym" element={<Gym/>} />
                 </Route>
                 <Route path="/profile" element={<Profile/>} />
                 

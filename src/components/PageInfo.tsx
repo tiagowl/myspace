@@ -22,6 +22,9 @@ export default function PageInfo(){
                 break;
             case "/wishes":
                 setPageName("Desejos");
+                break;
+            case "/gym":
+                setPageName("Academia");
         }
     }
 

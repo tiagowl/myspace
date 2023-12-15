@@ -44,11 +44,11 @@ export default function Sidebar(){
                             Desejos
                         </ListItem>
                         {/* You can also use custom icons from react-icons */}
-                        <ListItem fontSize="md" color="gray.500" >
+                        <ListItem fontSize="md" cursor="pointer" onClick={()=>navigate("/gym")} color="gray.500" >
                             <ListIcon as={CgGym} color='gray.500' />
                             Academia
                         </ListItem>
-                        </List>
+                    </List>
                 </Flex>
             </Flex>
     )
